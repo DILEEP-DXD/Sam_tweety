@@ -37,9 +37,9 @@
       "@type": "OfferCatalog",
       "name": "Nutrition Services",
       "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Holistic Nutrition Consultation"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Personalized Diet Plans"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pathological Report Reading"}}
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Holistic Nutritionist"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pathology Report Reading"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Functional Foods"}}
       ]
     }
   }
@@ -55,6 +55,26 @@
 
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#1a4d2e',
+              light: '#2d6a4f',
+              accent: '#39db4a', /* Brighter green from mockup CTA */
+              bg: '#fbfaf8', /* Off-white cream */
+              muted: '#6b7280'
+            }
+          }
+        }
+      }
+    }
+  </script>
 </head>
 <body>
 
@@ -72,31 +92,50 @@
   <!-- ============================================
        NAVBAR
        ============================================ -->
-  <header class="navbar" id="navbar" role="banner">
-    <div class="container">
-      <a href="#" class="nav-logo" aria-label="Diet Care with Samatha — Home">
-        <div class="nav-logo-icon" aria-hidden="true">🌿</div>
-        Diet Care with <span>Samatha</span>
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100" id="navbar" role="banner">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 text-xl font-bold text-gray-900" aria-label="Diet Care with Samatha — Home">
+        <div class="w-8 h-8 rounded-lg bg-brand-green text-white flex items-center justify-center text-sm" aria-hidden="true">🌿</div>
+        <span>Diet Care with Samatha</span>
       </a>
 
-      <nav class="nav-menu" id="nav-menu" role="navigation" aria-label="Main navigation">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#bmi" class="nav-link">BMI Calculator</a>
-        <a href="#testimonials" class="nav-link">Testimonials</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-        <a href="#contact" class="nav-link">Contact</a>
-        <div class="nav-cta">
-          <a href="#contact" class="btn btn-primary btn-sm">Book Consultation</a>
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-gray-700" role="navigation" aria-label="Main navigation">
+        <a href="#home" class="hover:text-brand-green transition-colors font-semibold text-gray-900">Home</a>
+        <a href="#about" class="hover:text-brand-green transition-colors">About</a>
+        <a href="#services" class="hover:text-brand-green transition-colors">Services</a>
+        
+        <!-- Dropdown Container -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 hover:text-brand-green transition-colors" aria-haspopup="true" aria-expanded="false">
+            Resources
+            <svg class="w-4 h-4 text-gray-500 group-hover:text-brand-green transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div class="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div class="py-2">
+              <a href="#bmi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-green">BMI Calculator</a>
+              <a href="#testimonials" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-green">Testimonials</a>
+              <a href="#faq" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-green">FAQ</a>
+            </div>
+          </div>
         </div>
+        
+        <a href="#contact" class="hover:text-brand-green transition-colors">Contact</a>
       </nav>
 
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <!-- CTA & Mobile Toggle -->
+      <div class="flex items-center gap-4">
+        <a href="#contact" class="hidden md:inline-flex bg-brand-accent hover:bg-green-500 text-gray-900 font-semibold px-5 py-2 rounded-full text-sm transition-colors shadow-sm">
+          Book a call
+        </a>
+        
+        <button class="md:hidden p-2 text-gray-600 hover:text-brand-green" id="nav-toggle" aria-label="Toggle navigation menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -108,83 +147,78 @@
     <!-- ============================================
          HERO
          ============================================ -->
-    <section class="hero section" id="home" aria-labelledby="hero-heading">
-      <div class="container">
-        <div class="hero-content" data-aos="fade-right" data-aos-duration="800">
-          <div class="hero-badge">
-            <span class="badge-dot" aria-hidden="true"></span>
-            Certified Holistic Nutrition Consultant
-          </div>
-
-          <h1 id="hero-heading" class="hero-title">
-            Personalized Nutrition That <span class="highlight">Fits Your Lifestyle</span>
-          </h1>
-
-          <div class="hero-points">
-            <ul>
-              <li><span class="cross" aria-hidden="true">✕</span> Not crash diets.</li>
-              <li><span class="cross" aria-hidden="true">✕</span> Not generic meal plans.</li>
-            </ul>
-          </div>
-
-          <p class="hero-description">
-            Science-backed nutrition guidance tailored specifically for your <strong>body</strong>, <strong>health goals</strong>, and <strong>lifestyle</strong>.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="#contact" class="btn btn-primary btn-lg">🟢 Book Consultation</a>
-            <a href="#services" class="btn btn-secondary btn-lg">Explore Services</a>
-          </div>
-
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <span class="stat-icon" aria-hidden="true">✔</span>
-              Certified Nutrition Consultant
+    <section class="bg-brand-bg pt-20 pb-16" id="home" aria-labelledby="hero-heading">
+      <div class="max-w-7xl mx-auto px-8">
+        
+        <!-- Hero Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+          
+          <!-- Left: Content -->
+          <div data-aos="fade-right" data-aos-duration="800">
+            <div class="inline-flex items-center gap-2 bg-green-900/5 border border-green-900/10 text-brand-green px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+              <span class="w-2 h-2 bg-brand-accent rounded-full animate-pulse" aria-hidden="true"></span>
+              Certified holistic nutrition consultant
             </div>
-            <div class="hero-stat">
-              <span class="stat-icon" aria-hidden="true">✔</span>
-              Personalized Plans
-            </div>
-            <div class="hero-stat">
-              <span class="stat-icon" aria-hidden="true">✔</span>
-              Continuous Support
+
+            <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.15] mb-6 tracking-tight">
+              Personalized nutrition <br class="hidden sm:block"/>that <span class="text-brand-green">fits your lifestyle</span>
+            </h1>
+
+            <p class="text-lg text-brand-muted mb-8 max-w-xl">
+              Science-backed nutrition guidance tailored specifically to your body, health goals, and lifestyle.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#contact" class="inline-flex justify-center items-center bg-brand-green hover:bg-brand-light text-white font-semibold px-8 py-3.5 rounded-lg transition-colors">
+                Book consultation
+              </a>
+              <a href="#services" class="inline-flex justify-center items-center border border-gray-300 hover:border-brand-green text-gray-700 hover:text-brand-green font-semibold px-8 py-3.5 rounded-lg transition-colors">
+                Explore services
+              </a>
             </div>
           </div>
-        </div>
 
-        <div class="hero-visual" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
-          <div class="hero-image-wrapper">
+          <!-- Right: Visual -->
+          <div class="flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
             <img src="images/hero-food.png"
-                 alt="A vibrant healthy food bowl with fresh vegetables, quinoa, avocado and lean protein — representing balanced nutrition"
+                 alt="Vibrant healthy food bowl representing balanced nutrition"
                  loading="eager"
-                 width="600" height="340">
-            <div class="hero-image-overlay" aria-hidden="true"></div>
-          </div>
-
-          <div class="hero-cards">
-            <div class="hero-card" data-aos="zoom-in" data-aos-delay="400">
-              <div class="hero-card-icon" aria-hidden="true">🥗</div>
-              <div>
-                <h3>Personalized Diet Plans</h3>
-                <p>Customized nutrition plans designed for your health condition.</p>
-              </div>
-            </div>
-            <div class="hero-card" data-aos="zoom-in" data-aos-delay="500">
-              <div class="hero-card-icon" aria-hidden="true">🩺</div>
-              <div>
-                <h3>Pathological Report Reading</h3>
-                <p>Professional guidance to understand your medical reports.</p>
-              </div>
-            </div>
-            <div class="hero-card" data-aos="zoom-in" data-aos-delay="600">
-              <div class="hero-card-icon" aria-hidden="true">💻</div>
-              <div>
-                <h3>Online Consultation</h3>
-                <p>Consult from anywhere with personalized follow-ups.</p>
-              </div>
-            </div>
+                 class="w-full max-w-lg rounded-2xl object-cover shadow-sm bg-gray-100 aspect-[4/3]">
           </div>
         </div>
+
+        <!-- Feature Cards Row (Below Hero) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="400">
+          
+          <!-- Card 1 -->
+          <div class="bg-white border border-gray-100 p-6 rounded-2xl flex items-start gap-4">
+            <div class="text-2xl text-brand-green shrink-0 mt-1" aria-hidden="true">🌿</div>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Holistic nutritionist</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Complete well-being</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white border border-gray-100 p-6 rounded-2xl flex items-start gap-4">
+            <div class="text-2xl text-brand-green shrink-0 mt-1" aria-hidden="true">🩺</div>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Pathology report reading</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Nutrition from bloodwork</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white border border-gray-100 p-6 rounded-2xl flex items-start gap-4">
+            <div class="text-2xl text-brand-green shrink-0 mt-1" aria-hidden="true">🍎</div>
+            <div>
+              <h3 class="font-bold text-gray-900 text-lg mb-1">Functional foods</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">Food as medicine</p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
 
@@ -193,64 +227,42 @@
          ============================================ -->
     <section class="about section" id="about" aria-labelledby="about-heading">
       <div class="container">
-        <div class="about-image-wrapper" data-aos="fade-right" data-aos-duration="800">
-          <div class="about-image">
-            <img src="images/samatha-portrait.png"
-                 alt="Samatha — Certified Holistic Nutrition Consultant, standing in her modern clinic with a warm and approachable expression"
-                 loading="lazy"
-                 width="480" height="520">
-          </div>
-          <div class="about-image-decoration" aria-hidden="true"></div>
-          <div class="about-experience-badge">
-            <span class="number">Certified</span>
-            <span class="label">Holistic Nutrition</span>
-          </div>
-        </div>
-
-        <div class="about-content" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+        <div class="about-header" data-aos="fade-up">
           <p class="about-intro">Meet Your Nutritionist</p>
           <h2 id="about-heading" class="about-name">Hello, I'm Samatha</h2>
+        </div>
 
-          <div class="about-text">
-            <p>I help individuals achieve healthier lives through <strong>personalized nutrition</strong>, practical lifestyle changes, and evidence-based guidance.</p>
-            <p>Every person has different health goals. That's why every nutrition plan is designed specifically for you — not copied from templates.</p>
+        <div class="about-grid">
+          <div class="about-content" data-aos="fade-right" data-aos-duration="800">
+            <div class="about-text">
+              <p>I help individuals achieve healthier lives through <strong>personalized nutrition</strong>, practical lifestyle changes, and evidence-based guidance.</p>
+              <p>Every person has different health goals. That's why every nutrition plan is designed specifically for you — not copied from templates.</p>
+            </div>
+
+            <!-- Premium sleek tags instead of blocky certs -->
+            <div class="about-premium-certs">
+              <span class="premium-tag">🌿 Holistic Nutritionist</span>
+              <span class="premium-tag">🩺 Pathology Report Reading</span>
+              <span class="premium-tag">🍎 Functional Foods</span>
+            </div>
+
+            <a href="#contact" class="btn btn-primary btn-lg">Book a Consultation</a>
           </div>
 
-          <div class="about-certs">
-            <div class="about-cert">
-              <span class="cert-icon" aria-hidden="true">✔</span>
-              Holistic Nutrition
+          <!-- Organic Image Wrapper -->
+          <div class="about-image-wrapper organic-shape" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+            <div class="about-image-organic">
+              <img src="images/samatha-portrait.png"
+                   alt="Samatha — Certified Holistic Nutrition Consultant"
+                   loading="lazy"
+                   width="480" height="520">
             </div>
-            <div class="about-cert">
-              <span class="cert-icon" aria-hidden="true">✔</span>
-              Pathological Report Reading
-            </div>
-          </div>
-
-          <div class="about-specializations">
-            <div class="spec-card" data-aos="fade-up" data-aos-delay="100">
-              <div class="spec-card-icon" aria-hidden="true">⚖️</div>
-              Weight Management
-            </div>
-            <div class="spec-card" data-aos="fade-up" data-aos-delay="150">
-              <div class="spec-card-icon" aria-hidden="true">👩</div>
-              Women's Nutrition
-            </div>
-            <div class="spec-card" data-aos="fade-up" data-aos-delay="200">
-              <div class="spec-card-icon" aria-hidden="true">🩸</div>
-              Diabetes Nutrition
-            </div>
-            <div class="spec-card" data-aos="fade-up" data-aos-delay="250">
-              <div class="spec-card-icon" aria-hidden="true">🌿</div>
-              Lifestyle Nutrition
-            </div>
-            <div class="spec-card" data-aos="fade-up" data-aos-delay="300">
-              <div class="spec-card-icon" aria-hidden="true">📋</div>
-              Report Analysis
-            </div>
-            <div class="spec-card" data-aos="fade-up" data-aos-delay="350">
-              <div class="spec-card-icon" aria-hidden="true">🍽️</div>
-              Personalized Meal Planning
+            <!-- Soft background blob -->
+            <div class="organic-blob" aria-hidden="true"></div>
+            
+            <div class="about-experience-badge premium-badge">
+              <span class="number">Certified</span>
+              <span class="label">Holistic Nutrition</span>
             </div>
           </div>
         </div>
@@ -270,39 +282,21 @@
 
         <div class="services-grid">
           <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-icon" aria-hidden="true">⚖️</div>
-            <h3>Weight Management</h3>
-            <p>Healthy and sustainable weight loss without crash dieting. Achieve your ideal weight with balanced nutrition.</p>
+            <div class="service-icon" aria-hidden="true">🌿</div>
+            <h3>Holistic Nutritionist</h3>
+            <p>Complete lifestyle and nutrition guidance that considers your physical, mental, and emotional well-being.</p>
           </div>
 
           <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-icon" aria-hidden="true">🍽️</div>
-            <h3>Personalized Meal Plans</h3>
-            <p>Meal plans tailored for your body, goals, and preferences. Enjoy food while nourishing your health.</p>
-          </div>
-
-          <div class="service-card" data-aos="fade-up" data-aos-delay="300">
             <div class="service-icon" aria-hidden="true">🩺</div>
-            <h3>Pathological Report Reading</h3>
+            <h3>Pathology Report Reading</h3>
             <p>Understand your blood reports and receive personalized nutrition recommendations based on your results.</p>
           </div>
 
-          <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-icon" aria-hidden="true">🩸</div>
-            <h3>Diabetes Nutrition</h3>
-            <p>Balanced nutrition for healthy blood sugar management. Learn to eat smart and stay in control.</p>
-          </div>
-
-          <div class="service-card" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-icon" aria-hidden="true">👩</div>
-            <h3>Women's Health Nutrition</h3>
-            <p>Nutrition guidance for hormonal balance, PCOS management, and overall women's wellness.</p>
-          </div>
-
-          <div class="service-card" data-aos="fade-up" data-aos-delay="600">
-            <div class="service-icon" aria-hidden="true">🌿</div>
-            <h3>Holistic Nutrition</h3>
-            <p>Complete lifestyle and nutrition guidance that considers your physical, mental, and emotional well-being.</p>
+          <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-icon" aria-hidden="true">🍎</div>
+            <h3>Functional Foods</h3>
+            <p>Discover the power of food as medicine with functional foods that support your health and vitality.</p>
           </div>
         </div>
       </div>
@@ -319,38 +313,18 @@
           <p class="section-subtitle">Personalized care backed by certification, expertise, and genuine dedication to your health journey.</p>
         </div>
 
-        <div class="why-grid">
+        <div class="why-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
           <div class="why-card" data-aos="zoom-in" data-aos-delay="100">
-            <div class="why-card-icon" aria-hidden="true">🎓</div>
-            <h3>Certified in Holistic Nutrition</h3>
+            <div class="why-card-icon" aria-hidden="true">🌿</div>
+            <h3>Holistic Nutritionist Approach</h3>
           </div>
           <div class="why-card" data-aos="zoom-in" data-aos-delay="150">
             <div class="why-card-icon" aria-hidden="true">🩺</div>
-            <h3>Pathological Report Reading Expert</h3>
+            <h3>Precise Pathology Report Reading</h3>
           </div>
           <div class="why-card" data-aos="zoom-in" data-aos-delay="200">
-            <div class="why-card-icon" aria-hidden="true">🍽️</div>
-            <h3>Personalized Meal Planning</h3>
-          </div>
-          <div class="why-card" data-aos="zoom-in" data-aos-delay="250">
-            <div class="why-card-icon" aria-hidden="true">📊</div>
-            <h3>Evidence-Based Nutrition</h3>
-          </div>
-          <div class="why-card" data-aos="zoom-in" data-aos-delay="300">
-            <div class="why-card-icon" aria-hidden="true">🧘</div>
-            <h3>Lifestyle Coaching</h3>
-          </div>
-          <div class="why-card" data-aos="zoom-in" data-aos-delay="350">
-            <div class="why-card-icon" aria-hidden="true">💻</div>
-            <h3>Online Consultations</h3>
-          </div>
-          <div class="why-card" data-aos="zoom-in" data-aos-delay="400">
-            <div class="why-card-icon" aria-hidden="true">🔄</div>
-            <h3>Continuous Follow-up</h3>
-          </div>
-          <div class="why-card" data-aos="zoom-in" data-aos-delay="450">
-            <div class="why-card-icon" aria-hidden="true">🤝</div>
-            <h3>Individual Attention</h3>
+            <div class="why-card-icon" aria-hidden="true">🍎</div>
+            <h3>Functional Foods Expertise</h3>
           </div>
         </div>
       </div>
@@ -667,67 +641,7 @@
     <!-- ============================================
          BLOG
          ============================================ -->
-    <section class="section section-alt" id="blog" aria-labelledby="blog-heading">
-      <div class="container">
-        <div class="section-header" data-aos="fade-up">
-          <div class="section-badge">📚 Blog</div>
-          <h2 id="blog-heading" class="section-title">Health & Nutrition Articles</h2>
-          <p class="section-subtitle">Expert insights on nutrition, wellness, and healthy living.</p>
-        </div>
 
-        <div class="blog-grid">
-          <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="blog-card-image" aria-hidden="true">🥗</div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Women's Health</span>
-              <h3>Foods That Help Manage PCOS Naturally</h3>
-              <p>Discover the best foods and dietary patterns that can help manage PCOS symptoms and improve hormonal balance.</p>
-              <span class="blog-read-more">Read More →</span>
-            </div>
-          </article>
-
-          <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="blog-card-image" aria-hidden="true">⚖️</div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Weight Loss</span>
-              <h3>Healthy Weight Loss Without Crash Diets</h3>
-              <p>Learn sustainable approaches to weight loss that don't involve starving yourself or following restrictive fad diets.</p>
-              <span class="blog-read-more">Read More →</span>
-            </div>
-          </article>
-
-          <article class="blog-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="blog-card-image" aria-hidden="true">🩸</div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Diabetes</span>
-              <h3>The Complete Diabetes Diet Guide</h3>
-              <p>A comprehensive guide to managing blood sugar through smart nutrition choices and balanced meal planning.</p>
-              <span class="blog-read-more">Read More →</span>
-            </div>
-          </article>
-
-          <article class="blog-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="blog-card-image" aria-hidden="true">🩺</div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Health</span>
-              <h3>How to Read Your Blood Reports</h3>
-              <p>Understanding key markers in your blood work and what they mean for your nutrition and overall health.</p>
-              <span class="blog-read-more">Read More →</span>
-            </div>
-          </article>
-
-          <article class="blog-card" data-aos="fade-up" data-aos-delay="500">
-            <div class="blog-card-image" aria-hidden="true">🥜</div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Nutrition</span>
-              <h3>Complete Protein Guide for Every Diet</h3>
-              <p>Everything you need to know about protein — sources, daily requirements, and how to include it in vegetarian diets.</p>
-              <span class="blog-read-more">Read More →</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
     <!-- ============================================
          CONSULTATION PRICING
@@ -742,34 +656,26 @@
 
         <div class="pricing-grid">
           <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="pricing-icon" aria-hidden="true">💬</div>
-            <h3>Initial Consultation</h3>
+            <div class="pricing-icon" aria-hidden="true">🌿</div>
+            <h3>Holistic Nutrition Plan</h3>
             <p class="price">Contact for Pricing</p>
-            <p>Complete health assessment, medical history review, and personalized nutrition roadmap.</p>
+            <p>Comprehensive health assessment, customized meal plans, and ongoing lifestyle coaching.</p>
             <a href="#contact" class="btn btn-secondary btn-sm" style="width:100%;">Get Started</a>
           </div>
 
           <div class="pricing-card featured" data-aos="fade-up" data-aos-delay="200">
-            <div class="pricing-icon" aria-hidden="true">🍽️</div>
-            <h3>Personalized Diet Plan</h3>
+            <div class="pricing-icon" aria-hidden="true">🩺</div>
+            <h3>Pathology Report Analysis</h3>
             <p class="price">Contact for Pricing</p>
-            <p>Customized meal plans, grocery lists, recipes, and nutritional breakdown for your goals.</p>
+            <p>Professional pathological report review with personalized nutrition recommendations based on results.</p>
             <a href="#contact" class="btn btn-primary btn-sm" style="width:100%;">Get Started</a>
           </div>
 
           <div class="pricing-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="pricing-icon" aria-hidden="true">🔄</div>
-            <h3>Follow-up Consultation</h3>
+            <div class="pricing-icon" aria-hidden="true">🍎</div>
+            <h3>Functional Foods Plan</h3>
             <p class="price">Contact for Pricing</p>
-            <p>Progress tracking, plan adjustments, and ongoing guidance to keep you on track.</p>
-            <a href="#contact" class="btn btn-secondary btn-sm" style="width:100%;">Get Started</a>
-          </div>
-
-          <div class="pricing-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="pricing-icon" aria-hidden="true">🩺</div>
-            <h3>Report Review</h3>
-            <p class="price">Contact for Pricing</p>
-            <p>Professional pathological report analysis with nutrition recommendations based on results.</p>
+            <p>Discover and integrate food as medicine into your diet to support specific health conditions and vitality.</p>
             <a href="#contact" class="btn btn-secondary btn-sm" style="width:100%;">Get Started</a>
           </div>
         </div>
@@ -872,11 +778,9 @@
         <div>
           <h4>Services</h4>
           <ul class="footer-links">
-            <li><a href="#services">Holistic Nutrition</a></li>
-            <li><a href="#services">Weight Management</a></li>
-            <li><a href="#services">Report Reading</a></li>
-            <li><a href="#services">Women's Nutrition</a></li>
-            <li><a href="#services">Personalized Diet Plans</a></li>
+            <li><a href="#services">Holistic Nutritionist</a></li>
+            <li><a href="#services">Pathology Report Reading</a></li>
+            <li><a href="#services">Functional Foods</a></li>
           </ul>
         </div>
 
