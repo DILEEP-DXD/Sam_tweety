@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (navToggle && navMenu) {
     navToggle.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('open');
+      navMenu.classList.toggle('hidden');
+      const isOpen = navMenu.classList.toggle('flex');
       navToggle.classList.toggle('active');
       navToggle.setAttribute('aria-expanded', isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -64,28 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close menu on link click
     navMenu.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
+        navMenu.classList.add('hidden');
+        navMenu.classList.remove('flex');
         navToggle.classList.remove('active');
         navToggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       });
     });
 
-    // Close on CTA click too
-    const navCta = navMenu.querySelector('.nav-cta a');
-    if (navCta) {
-      navCta.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        navToggle.classList.remove('active');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    }
-
     // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navMenu.classList.contains('open')) {
-        navMenu.classList.remove('open');
+      if (e.key === 'Escape' && navMenu.classList.contains('flex')) {
+        navMenu.classList.add('hidden');
+        navMenu.classList.remove('flex');
         navToggle.classList.remove('active');
         navToggle.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
